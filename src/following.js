@@ -3,16 +3,7 @@ const cookieParser = require("cookie-parser");
 const Profiles = require('../src/model/data').Profiles;
 const Users = require('../src/model/data').Users
 const thisLoginUser = require('./auth');
-const profile = [{
-    username: 'DLeebron',
-    headline: 'This is DLeebron headline!',
-    follower: [],
-    email: 'foo@bar.com',
-    zipcode: 12345,
-    dob: '128999122000',
-    avatar: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/4e/DWLeebron.jpg/220px-DWLeebron.jpg'
-}
-]
+
 
 function getFollowing(req, res) {
     let user = "";
@@ -28,7 +19,7 @@ function getFollowing(req, res) {
 }
 
 function putFollowing(req, res) {
-    let username = req.username;
+    let username = req.body.username;
     let newFollowers = req.params.user;
     let followers = [];
     if (newFollowers === username) {

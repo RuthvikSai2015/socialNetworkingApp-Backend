@@ -6,9 +6,9 @@ const Profile = require('../src/model/data').Profiles
 const {Profiles} = require("../src/model/data");
 
 function getArticles(req, res) {    //efficient MongoDB query to get User's feed
-    Profile.find({username: req.username}).exec(function(err, items){
+    Profile.find({username: req.body.username}).exec(function(err, items){
         const userObj = items[0];
-        const userToQuery = [req.username, ... userObj.followers]
+        const userToQuery = [req.body.username, ... userObj.followers]
         Article.find({author: {$in: userToQuery}}).sort('-date').limit(10).exec(function(err, item2) {
             res.status(200).send({posts: item2})
         })
@@ -54,11 +54,11 @@ const getArticle = (req, res) => {
 
 const addArticle = (req, res) => {
     // TODO: add an article (i.e. push new article on existing article array)
-    console.log(req);
-    username = req.username;
+    console.log("REQ-----",req.body.username);
+    username = req.body.username;
     let post = req.body.text;
     let url = req.body.url;
-    let newArticle = { author: req.username, text: post, date: new Date().getTime(), url: url}
+    let newArticle = { author: req.body.username, text: post, date: new Date().getTime(), url: url}
     new Article({
         author: newArticle.author,
         text: newArticle.text,

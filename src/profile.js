@@ -6,15 +6,7 @@ const thisLoginUser = require('./auth');
 //const uploadImage = require('./uploadCloudinary')
 
 const md5 = require("md5");
-const profile = [{
-    username: 'DLeebron',
-    headline: 'This is DLeebron headline!',
-    email: 'foo@bar.com',
-    zipcode: 12345,
-    dob: '128999122000',
-    avatar: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/4e/DWLeebron.jpg/220px-DWLeebron.jpg'
-}
-]
+
 
 
 const getHeadline = (req, res) => {
@@ -47,7 +39,7 @@ const getHeadlines = (req, res) => {
 
 
 function putHeadine(req, res) {
-    let username = req.username;
+    let username = req.body.username;
     let newHeadline = req.body.headline;
     Profiles.update({username: username}, {$set:{headline: newHeadline}}, function(err, items) {
         res.status(200).send({username: username, headline: newHeadline});

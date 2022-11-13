@@ -134,8 +134,8 @@ module.exports = (app) => {
     app.use(cookieParser());
     app.post('/login', login);
     app.post('/register', register);
-    app.use(session({secret: 'doNotGuessTheSecret', resave: true, saveUninitialized: true}));
-    app.use(isLoggedIn);
+    //app.use(session({secret: 'cookieSecret', resave: true, saveUninitialized: true}));
+    //app.use(isLoggedIn);
     app.put('/logout', logout);
 
 
