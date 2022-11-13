@@ -62,7 +62,9 @@ function login(req, res) {
                 let sid = md5(user.hash + user.salt);
                 sessionUser[sid] = user.username;
                 // Adding cookie for session id
+                console.log("sid---",sid);
                 res.cookie(cookieKey, sid, { maxAge: 3600 * 1000, httpOnly: true ,sameSite:"", secure: true});
+                console.log(res.cookie);
                 let msg = {username: username, result: 'success'};
                 res.send(msg);
             }
@@ -123,8 +125,8 @@ function register(req, res) {
 }
 
 function logout(req, res) {
-    // let temp = req.cookies[cookieKey];
-    // delete sessionUser[temp];
+    let temp = req.cookies[cookieKey];
+    delete sessionUser[temp];
     res.clearCookie(cookieKey)
     res.send({result: 'logout success'})
 }
@@ -134,8 +136,8 @@ module.exports = (app) => {
     app.use(cookieParser());
     app.post('/login', login);
     app.post('/register', register);
-    //app.use(session({secret: 'cookieSecret', resave: true, saveUninitialized: true}));
-    //app.use(isLoggedIn);
+    app.use(session({secret: 'cookieSecret', resave: true, saveUninitialized: true}));
+    app.use(isLoggedIn);
     app.put('/logout', logout);
 
 

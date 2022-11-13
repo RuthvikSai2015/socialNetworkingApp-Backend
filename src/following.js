@@ -62,7 +62,7 @@ function putFollowing(req, res) {
 }
 
 function deleteFollowing(req, res) {
-    let username = req.username;
+    let username = req.body.username;
     let newFollowers = req.params.user;
     let followers = [];
     Profiles.find ({ username: username}).exec(function(err, items) {
