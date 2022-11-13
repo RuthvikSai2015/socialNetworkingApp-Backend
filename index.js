@@ -4,19 +4,17 @@ const corsOptions ={
     credentials:true          
 }
 
-const auth = require('../src/auth');
-const articles = require('../src/articles');
-const following = require('../src/following');
-const profile = require('../src/profile');
+const auth = require('./src/auth');
+const articles = require('./src/articles');
+const following = require('./src/following');
+const profile = require('./src/profile');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
-const userSchema = require('../src/model/data').userSchema;
-const articleSchema = require('../src/model/data').articleSchema;
-const User = require('../src/model/data').Users;
-//mongodb+srv://admin:sara123@cluster0.pfunxzd.mongodb.net/social?retryWrites=true&w=majority
-
+const userSchema = require('./src/model/data').userSchema;
+const articleSchema = require('./src/model/data').articleSchema;
+const User = require('./src/model/data').Users;
 const connectionString = "mongodb+srv://saranabiya:admin@cluster0.hdz40ci.mongodb.net/social?retryWrites=true&w=majority";
 
 const hello = (req, res) => res.send({ hello: 'world' });
