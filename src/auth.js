@@ -2,9 +2,6 @@ const md5 =require('md5')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const session = require("express-session");
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const {Profiles} = require("../src/model/data");
 const Users = require('../src/model/data').Users
 const Profile = require('../src/model/data').Profiles
 let sessionUser = {};
@@ -55,10 +52,9 @@ function login(req, res) {
     Users.find({username: username}).exec(function(err,items) {
         if (items.length === 1) {
             const user = {username: items[0].username, salt: items[0].salt, hash: items[0].hash}
-            // TODO: create hash using md5, user salt and request password, check if hash matches user hash
             let hash = md5(user.salt + password);
             if (hash === user.hash) {
-                // TODO: create session id, use sessionUser to map sid to user username
+                // create session id, use sessionUser to map sid to user username
                 let sid = md5(user.hash + user.salt);
                 sessionUser[sid] = user.username;
                 // Adding cookie for session id
