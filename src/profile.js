@@ -39,7 +39,7 @@ const getHeadlines = (req, res) => {
 
 
 function putHeadine(req, res) {
-    let username = req.body.username;
+    let username = req.username;
     let newHeadline = req.body.headline;
     Profiles.update({username: username}, {$set:{headline: newHeadline}}, function(err, items) {
         res.status(200).send({username: username, headline: newHeadline});
@@ -114,7 +114,7 @@ function putPassword(req, res) {
     let username = req.username;
     let newPassword = req.body.password;
     let salt = md5(username + new Date().getTime());
-    let hash = md5(salt + newPassword);// TODO: Change this to use md5 to create a hash
+    let hash = md5(salt + newPassword);
     Users.update({username: username}, {$set:{salt: salt, hash: hash}}, function(err, items) {
         res.status(200).send({username: username, result: "success"});
     })

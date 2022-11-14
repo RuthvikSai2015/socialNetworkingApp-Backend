@@ -19,7 +19,7 @@ function getFollowing(req, res) {
 }
 
 function putFollowing(req, res) {
-    let username = req.body.username;
+    let username = req.username;
     let newFollowers = req.params.user;
     let followers = [];
     if (newFollowers === username) {
@@ -41,28 +41,10 @@ function putFollowing(req, res) {
             })
         })
     })
-    //
-    // Profiles.find ({ username: username}).exec(function(err, items) {
-    //
-    //     followers.forEach(value => {
-    //         if (value === newFollowers) {
-    //             flag = 2;
-    //         }
-    //     })
-    // if (flag === 2) {
-    //     res.status(400).send({result: 'the user already be followed'})
-    // }
-    // else {
-    //     followers.push(newFollowers);
-    //     Profiles.updateOne({username: username}, {$set: {followers: followers}}, function (err, items3) {
-    //         res.status(200).send({username: username, followers: followers});
-    //     })
-    // }
-    // })
 }
 
 function deleteFollowing(req, res) {
-    let username = req.body.username;
+    let username = req.username;
     let newFollowers = req.params.user;
     let followers = [];
     Profiles.find ({ username: username}).exec(function(err, items) {

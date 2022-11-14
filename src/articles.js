@@ -5,10 +5,10 @@ const Profile = require('../src/model/data').Profiles
 //const uploadImage = require('./uploadCloudinary')
 const {Profiles} = require("../src/model/data");
 
-function getArticles(req, res) {    //efficient MongoDB query to get User's feed
-    Profile.find({username: req.body.username}).exec(function(err, items){
+function getArticles(req, res) {    
+    Profile.find({username: req.username}).exec(function(err, items){
         const userObj = items[0];
-        const userToQuery = [req.body.username, ... userObj.followers]
+        const userToQuery = [req.username, ... userObj.followers]
         Article.find({author: {$in: userToQuery}}).sort('-date').limit(10).exec(function(err, item2) {
             res.status(200).send({posts: item2})
         })
@@ -49,13 +49,9 @@ const getArticle = (req, res) => {
 }
 
 
-// // TODO: get the correct article by using the id
-// const getArticle = (req, res) => res.send(articles[req.params.id]);
-
 const addArticle = (req, res) => {
-    // TODO: add an article (i.e. push new article on existing article array)
-    console.log("REQ-----",req.body.username);
-    username = req.body.username;
+   
+    username = req.username;
     let post = req.body.text;
     let url = req.body.url;
     let newArticle = { author: req.body.username, text: post, date: new Date().getTime(), url: url}
@@ -180,7 +176,7 @@ module.exports = (app) => {
     app.use(cookieParser());
     // app.get('/articles', getArticles);
     app.get('/articles/:id?', getArticle);
-    app.get('/article/:id?', getArticles); //this from get this person and followers
+    app.get('/article/:id?', getArticles); 
     app.put('/articles/:id', putArticle);
     app.put('/comment/:id', putComment);
     app.put('/article/:date?', putArticlesByDate)
