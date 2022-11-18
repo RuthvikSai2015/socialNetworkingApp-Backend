@@ -174,7 +174,7 @@ function putUrl(req, res) {
 module.exports = (app) => {
     app.use(bodyParser.json());
     app.use(cookieParser());
-    // app.get('/articles', getArticles);
+   // app.get('/articles', getArticles);
     app.get('/articles/:id?', getArticle);
     app.get('/article/:id?', getArticles); 
     app.put('/articles/:id', putArticle);

@@ -3,6 +3,8 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const session = require("express-session");
 const Users = require('../src/model/data').Users
+const redis = require('redis').createClient(
+    'redis://default:dpxsg5P31GrjoPVX66jHV9GseWKUrGi4@redis-19961.c16.us-east-1-3.ec2.cloud.redislabs.com:19961');
 const Profile = require('../src/model/data').Profiles
 let sessionUser = {};
 let cookieKey = "sid";
@@ -55,12 +57,13 @@ function login(req, res) {
             let hash = md5(user.salt + password);
             if (hash === user.hash) {
                 // create session id, use sessionUser to map sid to user username
+
                 let sid = md5(user.hash + user.salt);
                 sessionUser[sid] = user.username;
+                redis.hmset("sessions",sid,user.username);
+                redis.hmset("temp",-1,sid);
                 // Adding cookie for session id
-                console.log("sid---",sid);
                 res.cookie(cookieKey, sid, { maxAge: 3600 * 1000, httpOnly: true ,sameSite:"", secure: true});
-                console.log(res.cookie);
                 let msg = {username: username, result: 'success'};
                 res.send(msg);
             }
