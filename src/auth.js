@@ -88,9 +88,9 @@ function register(req, res) {
 
 
     let salt = md5(username + new Date().getTime());
-    let hash = md5(salt + password);// TODO: Change this to use md5 to create a hash
+    let hash = md5(salt + password);
 
-    userObjs[username] =  {username: username, salt: salt, hash: hash} // TODO: Change this to store object with username, salt, hash
+    userObjs[username] =  {username: username, salt: salt, hash: hash} 
 
     Users.find({username:username}).exec(function(err, items) {
         if (items.length > 0) {
