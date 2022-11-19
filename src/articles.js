@@ -53,13 +53,11 @@ const addArticle = (req, res) => {
    
     username = req.username;
     let post = req.body.text;
-    let url = req.body.url;
-    let newArticle = { author: req.body.username, text: post, date: new Date().getTime(), url: url}
+    let newArticle = { author: req.username, text: post, date: new Date().getTime()}
     new Article({
         author: newArticle.author,
         text: newArticle.text,
         date: newArticle.date,
-        url: newArticle.url,
         comments: []
     }).save(function(err, items) {
         Article.find({author: username}).exec(function (err, items) {
@@ -81,7 +79,7 @@ function putComment(req, res) {
                 })
     })
 }
-function putArticle(req, res) {
+function updateArticle(req, res) {
     let pid = req.params.id;
     let text = req.body.text;
     let user = req.username;
@@ -176,8 +174,8 @@ module.exports = (app) => {
     app.use(cookieParser());
    // app.get('/articles', getArticles);
     app.get('/articles/:id?', getArticle);
-    app.get('/article/:id?', getArticles); 
-    app.put('/articles/:id', putArticle);
+    app.get('/articles/:id?', getArticles); 
+    app.put('/articles/:id', updateArticle);
     app.put('/comment/:id', putComment);
     app.put('/article/:date?', putArticlesByDate)
     //app.put('/url/', uploadImage('url'), putUrl)

@@ -104,7 +104,7 @@ function getAvatar(req, res) {
 
 function putAvatar(req, res) {
     let username = req.username;
-    let newAvatar = req.fileurl;
+    let newAvatar = req.url;
     Profiles.updateOne({username: username}, {$set:{avatar: newAvatar}}, function(err, items) {
         res.status(200).send({username: username, avatar: newAvatar});
     })
@@ -184,7 +184,8 @@ module.exports = (app) => {
     app.get('/zipcode/:user?', getZipcode);
     app.put('/zipcode', putZipcode);
     app.get('/avatar/:user?', getAvatar);
-   // app.put('/avatar', uploadImage('avatar'), putAvatar)
+    //app.put('/avatar', uploadImage('avatar'), putAvatar)
+    app.put('/avatar', putAvatar);
     app.put('/password', putPassword);
     app.get('/username', getUsername);
     app.get('/password', getPassword);
