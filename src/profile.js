@@ -105,8 +105,13 @@ function getAvatar(req, res) {
 function putAvatar(req, res) {
     let username = req.username;
     let newAvatar = req.body.avatar;
-    Profiles.updateOne({username: username}, {$set:{avatar: newAvatar}}, function(err, items) {
-        res.status(200).send({username: username, avatar: newAvatar});
+   // Profiles.updateOne({username: username}, {$set:{avatar: newAvatar}}, function(err, items) {
+       // res.status(200).send({username: username, avatar: newAvatar});
+    //})
+    Profiles.find ({ username: username}).exec(function(err, items) {
+        items.forEach(item => {
+            res.status(200).send({username: item.username, avatar: item.avatar});
+        })
     })
 }
 
