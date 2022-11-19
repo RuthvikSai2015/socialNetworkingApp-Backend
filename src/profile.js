@@ -104,7 +104,7 @@ function getAvatar(req, res) {
 
 function putAvatar(req, res) {
     let username = req.username;
-    let newAvatar = req.url;
+    let newAvatar = req.body.avatar;
     Profiles.updateOne({username: username}, {$set:{avatar: newAvatar}}, function(err, items) {
         res.status(200).send({username: username, avatar: newAvatar});
     })
