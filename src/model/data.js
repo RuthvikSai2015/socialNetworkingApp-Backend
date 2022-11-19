@@ -29,10 +29,6 @@ const articleSchema = new mongoose.Schema({
         type: Date,
         required: [true, 'date is required']
     },
-    url: {
-        type: String,
-        required: [false, 'date is not required']
-    },
     comments: []
 })
 
@@ -48,11 +44,7 @@ const userSchema = new mongoose.Schema({
     hash: {
         type: String,
        required: [true, 'hash is required']
-    },
-    // created: {
-    //     type: Date,
-    //     required: [true, 'Created date is required']
-    // }
+    }
 })
 
 exports.Profiles = mongoose.model('profiles',profileSchema)
