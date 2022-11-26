@@ -94,7 +94,7 @@ function register(req, res) {
 
     Users.find({username:username}).exec(function(err, items) {
         if (items.length > 0) {
-            res.status(200).send({result:'the username already exist'})
+            res.status(200).send({result:'Username already exist'})
             return
         }
 
