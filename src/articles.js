@@ -53,11 +53,12 @@ const addArticle = (req, res) => {
    
     username = req.username;
     let post = req.body.text;
-    let newArticle = { author: req.username, text: post, date: new Date().getTime()}
+    let newArticle = { author: req.username, text: post, date: new Date().getTime(),url : req.body.url }
     new Article({
         author: newArticle.author,
         text: newArticle.text,
         date: newArticle.date,
+        url : newArticle.url,
         comments: []
     }).save(function(err, items) {
         Article.find({author: username}).exec(function (err, items) {

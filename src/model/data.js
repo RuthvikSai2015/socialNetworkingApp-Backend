@@ -29,6 +29,10 @@ const articleSchema = new mongoose.Schema({
         type: Date,
         required: [true, 'date is required']
     },
+    url: {
+        type: String,
+        required: [true, 'url is required']
+    },
     comments: []
 })
 

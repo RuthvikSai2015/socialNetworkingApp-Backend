@@ -6,12 +6,12 @@ const stream = require('stream')
 const cloudinary = require('cloudinary')
 
 if (!process.env.CLOUDINARY_URL) {
-    process.env.CLOUDINARY_URL = "cloudinary://836633579553348:6bVQnCg26xia1unNudZBtBaYTGI@hpripmgvg"
+    process.env.CLOUDINARY_URL = "cloudinary://413813918969151:3quGTXaJK3Zpbi-PLnLjfCsI6hw@delvnhkt0"
 }
 cloudinary.config({
-    cloud_name: 'hpripmgvg',
-    api_key: '836633579553348',
-    api_secret: '6bVQnCg26xia1unNudZBtBaYTGI'
+    cloud_name: 'delvnhkt0',
+    api_key: '413813918969151',
+    api_secret: '3quGTXaJK3Zpbi-PLnLjfCsI6hw'
 });
 const doUpload = (publicId, req, res, next) => {
 

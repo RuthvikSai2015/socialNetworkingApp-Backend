@@ -3,7 +3,7 @@ const cookieParser = require("cookie-parser");
 const Profiles = require('../src/model/data').Profiles;
 const Users = require('../src/model/data').Users
 const thisLoginUser = require('./auth');
-//const uploadImage = require('./uploadCloudinary')
+const uploadImage = require('./uploadCloudinary')
 
 const md5 = require("md5");
 
@@ -104,10 +104,11 @@ function getAvatar(req, res) {
 
 function putAvatar(req, res) {
     let username = req.username;
+    console.log("request ----- "+req);
     let newAvatar = req.body.avatar;
    // Profiles.updateOne({username: username}, {$set:{avatar: newAvatar}}, function(err, items) {
        // res.status(200).send({username: username, avatar: newAvatar});
-    //})
+    //}) 
     Profiles.find ({ username: username}).exec(function(err, items) {
         items.forEach(item => {
             res.status(200).send({username: item.username, avatar: item.avatar});
@@ -189,8 +190,7 @@ module.exports = (app) => {
     app.get('/zipcode/:user?', getZipcode);
     app.put('/zipcode', putZipcode);
     app.get('/avatar/:user?', getAvatar);
-    //app.put('/avatar', uploadImage('avatar'), putAvatar)
-    app.put('/avatar', putAvatar);
+    app.put('/avatar', uploadImage('avatar'), putAvatar)
     app.put('/password', putPassword);
     app.get('/username', getUsername);
     app.get('/password', getPassword);
