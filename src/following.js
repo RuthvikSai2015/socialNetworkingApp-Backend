@@ -30,9 +30,16 @@ function putFollowing(req, res) {
     Profiles.find({username: newFollowers}).exec(function(err, items2) {
         if (items2.length === 0 || !items2) {
             flag = 1;
-            res.status(400).send({result: "the follow user do not exist"})
+            res.status(200).send({result: "the follow user do not exist"})
             return;
         }
+        Profiles.find({username: username,followers:newFollowers}).exec(function(err, result) {
+            if (result.length > 0 || !result) {
+                flag = 1;
+                res.status(200).send({result: "the user already exist as follower"})
+                return;
+            }
+        })
         Profiles.find({username: username}).exec(function(err, items3) {
             followers = items3[0].followers
             followers.push(newFollowers)
@@ -63,6 +70,6 @@ module.exports = (app) => {
     app.use(bodyParser.json());
     app.use(cookieParser());
     app.get('/following/:user?', getFollowing);
-    app.put('/following/:user', putFollowing);
+    app.put('/following/:user?', putFollowing);
     app.delete('/following/:user', deleteFollowing);
 }

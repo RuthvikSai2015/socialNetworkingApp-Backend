@@ -2,7 +2,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const Article = require('../src/model/data').Articles
 const Profile = require('../src/model/data').Profiles
-//const uploadImage = require('./uploadCloudinary')
+const uploadImage = require('./uploadCloudinary')
 const {Profiles} = require("../src/model/data");
 
 function getArticles(req, res) {    
@@ -172,13 +172,13 @@ function putUrl(req, res) {
 module.exports = (app) => {
     app.use(bodyParser.json());
     app.use(cookieParser());
-   // app.get('/articles', getArticles);
+    app.get('/articles', getArticles);
     app.get('/articles/:id?', getArticle);
     app.get('/articles/:id?', getArticles); 
     app.put('/articles/:id', updateArticle);
     app.put('/comment/:id', putComment);
     app.put('/article/:date?', putArticlesByDate)
-    //app.put('/url/', uploadImage('url'), putUrl)
+    app.put('/url/', uploadImage('url'), putUrl)
     app.get('/url/', getUrl);
     app.post('/article', addArticle);
 }
