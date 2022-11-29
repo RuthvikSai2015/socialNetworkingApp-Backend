@@ -75,9 +75,41 @@ function putComment(req, res) {
             Article.updateOne({_id: pid} , {$push : {comments: {author: req.username, text: text, date: new Date()}}}
                 ,function (err, item4) {
                     Article.find({author: user}).exec(function (err, itemOut) {
-                        res.status(200).send({articles: [itemOut]})
+                    if(itemOut.length == 1){
+                        return res.status(200).send({articles: [itemOut]})
+                    }
+                    else{
+                        return res.status(200).send({error: "not updated"})
+                    }
+                       
                     })
                 })
+    })
+}
+function updateLastComment(req,res){
+    let pid = req.params.id;
+    let text = req.body.text;
+    let user = req.username;
+    let comments=[];
+    Profile.find({username: user}).exec(function(err,items) {
+            Article.find({_id: pid}).exec(function(err,items) {
+                console.log([items]);
+                    comments = items.comments;
+                    console.log(comments);
+                   // {comments: {author: req.username, text: text, date: new Date()}}
+            })
+            // Article.updateOne({_id: pid} , {$set : comments}
+            //     ,function (err, item4) {
+            //         Article.find({author: user}).exec(function (err, itemOut) {
+            //         if(setTimeout.length == 1){
+            //             return res.status(200).send({articles: [itemOut]})
+            //         }
+            //         else{
+            //             return res.status(200).send({error: "not updated"})
+            //         }
+                       
+            //         })
+            //     })
     })
 }
 function updateArticle(req, res) {
@@ -178,6 +210,7 @@ module.exports = (app) => {
     app.get('/articles/:id?', getArticles); 
     app.put('/articles/:id', updateArticle);
     app.put('/comment/:id', putComment);
+    app.put('/lastComment/:id',updateLastComment);
     app.put('/article/:date?', putArticlesByDate)
     app.put('/url/', uploadImage('url'), putUrl)
     app.get('/url/', getUrl);

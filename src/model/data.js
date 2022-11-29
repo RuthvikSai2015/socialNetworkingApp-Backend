@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const uiUrl = "http://localhost:4200";
 const url = "mongodb+srv://saranabiya:admin@cluster0.hdz40ci.mongodb.net/social?retryWrites=true&w=majority";
 mongoose.connect(url);
 mongoose.connection.on('connected', function() {
@@ -51,6 +52,7 @@ const userSchema = new mongoose.Schema({
     }
 })
 
+exports.userInterface = uiUrl;
 exports.Profiles = mongoose.model('profiles',profileSchema)
 exports.Articles = mongoose.model('articles',articleSchema)
 exports.Users = mongoose.model('users',userSchema)
