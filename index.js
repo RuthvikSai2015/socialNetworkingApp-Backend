@@ -1,7 +1,7 @@
 const cors = require('cors');
 const url = require('./src/model/data').userInterface;
 const corsOptions ={
-    origin:'http://localhost:4200', 
+    origin:`${url}`, 
     credentials:true          
 }
 

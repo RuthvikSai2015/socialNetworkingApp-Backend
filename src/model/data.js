@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const uiUrl = "http://localhost:4200";
+const uiUrl = "https://sn62-hw8-version1.surge.sh";
 const url = "mongodb+srv://saranabiya:admin@cluster0.hdz40ci.mongodb.net/social?retryWrites=true&w=majority";
 mongoose.connect(url);
 mongoose.connection.on('connected', function() {
