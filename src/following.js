@@ -64,7 +64,7 @@ function deleteFollowing(req, res) {
             followers.splice(index, 1);
         }
         Profiles.updateOne({ username: username }, { $set: { followers: followers } }, function (err, items) {
-            res.status(200).send({ username: username, followers: followers });
+           return res.status(200).send({ username: username, followers: followers });
         })
     })
 
