@@ -36,7 +36,6 @@ articles(app);
 profile(app);
 following(app);
 
-// Get the port from the environment, i.e., Heroku sets it
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
      const addr = server.address();
