@@ -1,5 +1,6 @@
 const md5 =require('md5')
 const cookieParser = require('cookie-parser')
+var cookieSession = require('cookie-session')
 const bodyParser = require('body-parser')
 const session = require("express-session");
 const passport = require('passport');
@@ -66,7 +67,7 @@ function login(req, res) {
                 redis.hmset("sessions",sid,user.username);
                 redis.hmset("temp",-1,sid);
                 // Adding cookie for session id
-                res.cookie(cookieKey, sid, { maxAge: 3600 * 1000, httpOnly: true ,sameSite : "none",secure: true});
+                res.cookie(cookieKey, sid, { maxAge: 3600 * 1000, httpOnly: true ,sameSite:'none',secure: true});
                 let msg = {username: username, result: 'success'};
                 return res.send(msg);
             }
@@ -226,7 +227,7 @@ module.exports = (app) => {
     app.use(cookieParser());
     app.post('/login', login);
     app.post('/register', register);
-    app.use(session({secret: 'cookieSecret', resave: true, saveUninitialized: true}));
+    app.use(cookieSession({secret: 'cookieSecret', resave: true, saveUninitialized: true}));
     app.use(passport.initialize());
     app.use(passport.session());
     app.get('/auth/google', passport.authenticate('google',{ scope: ['https://www.googleapis.com/auth/plus.login'] }));
