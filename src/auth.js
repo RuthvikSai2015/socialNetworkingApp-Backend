@@ -141,7 +141,7 @@ passport.deserializeUser(function(user, done) {
 passport.use(new GoogleStrategy({
             clientID: '727588815757-09osaq62tj8j7s9l2r1i8md4e646fevg.apps.googleusercontent.com',
             clientSecret: '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',
-            callbackURL: `${url}/auth/google/callback`    
+            callbackURL: `https://sn62-hw8-version1.surge.sh/auth/google/callback`    
         
         },
         function(accessToken, refreshToken, profile, done) {
