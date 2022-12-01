@@ -66,7 +66,7 @@ function login(req, res) {
                 redis.hmset("sessions",sid,user.username);
                 redis.hmset("temp",-1,sid);
                 // Adding cookie for session id
-                res.cookie(cookieKey, sid, { maxAge: 3600 * 1000, httpOnly: true ,sameSite:"none", secure: true});
+                res.cookie(cookieKey, sid, { maxAge: 3600 * 1000, httpOnly: true ,domain: `${url}`, secure: true});
                 let msg = {username: username, result: 'success'};
                 return res.send(msg);
             }
